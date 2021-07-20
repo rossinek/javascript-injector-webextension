@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html class="browser-style">
+  <head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="popup.css"/>
+  </head>
+
+  <body class="browser-style">
+    <div class="shark-list"></div>
+    <div class="shark-form-wrapper">
+      <button class="browser-style" type="button" name="add">Add a script</button>
+    </div>
+
+    <!-- TEMPLATES -->
+    <form class="shark-form-template">
+      <div class="shark-form__inputs">
+        <div class="shark-form__hosts">
+          <div>Hosts</div>
+          <input type="text" name="hosts" />
+        </div>
+        <div class="shark-form__code">
+          <div>Code</div>
+          <textarea name="code"></textarea>
+        </div>
+      </div>
+      <div class="shark-form__buttons">
+        <button class="browser-style" type="button" name="cancel">CANCEL</button>
+        <button class="browser-style" type="submit">SAVE</button>
+      </div>
+    </form>
+
+    <details class="shark-list__item-template">
+      <summary class="shark-list__item-summary">
+        <span class="shark-list__hosts"></span>
+        <button class="shark-list__remove" type="button">×</button>
+      </summary>
+      <pre class="shark-list__code"></pre>
+    </details>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
