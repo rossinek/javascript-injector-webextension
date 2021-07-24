@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "sourceMap": true,
+    "lib": ["esnext", "dom"],
+    "target": "es6",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "paths": {
+      "~*": ["../*"]
+    },
+  },
+  "include": ["src/**/*.ts", "src/**/*.vue"],
+}

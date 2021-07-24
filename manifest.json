@@ -23,10 +23,9 @@
       "48": "icons/js-48.png"
     },
     "default_title": "Javascript Injector",
-    "default_popup": "popup/popup.html",
-    "browser_style": true
+    "default_popup": "dist/popup/index.html"
   },
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["dist/background/background.js"]
   }
 }

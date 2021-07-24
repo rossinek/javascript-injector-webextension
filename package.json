@@ -1,0 +1,61 @@
+{
+  "name": "javascript-injector",
+  "version": "1.0.0",
+  "description": "Evaluate JS code on pages at a given domain",
+  "scripts": {
+    "build": "rm -rf dist .parcel-cache && concurrently \"npm:build:background\" \"npm:build:popup\" \"npm:build:scripts\"",
+    "build:background": "parcel build src/background/background.ts --target background --no-cache --no-scope-hoist",
+    "build:popup": "parcel build src/popup/index.html --no-cache --target popup --no-scope-hoist",
+    "build:scripts": "parcel build src/scripts/*.ts --no-cache --target content-scripts --no-scope-hoist",
+    "dev": "rm -rf dist .parcel-cache && concurrently \"npm:dev:background\" \"npm:dev:popup\" \"npm:dev:scripts\"",
+    "dev:background": "nodemon -e ts,json --watch src/background --watch src/shared --exec \"npm run build:background\"",
+    "dev:popup": "nodemon -e ts,json,html,vue --watch src/popup --watch src/shared --exec \"npm run build:popup\"",
+    "dev:scripts": "nodemon -e ts,json --watch src/scripts --watch src/shared --exec \"npm run build:scripts\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Artur Rosa <artur.rosa@monterail.com> (https://arturrosa.pl/)",
+  "license": "MIT",
+  "dependencies": {
+    "@vue/compiler-sfc": "^3.1.5",
+    "concurrently": "^6.2.0",
+    "nodemon": "^2.0.12",
+    "parcel": "^2.0.0-nightly.776",
+    "sass": "^1.35.2",
+    "typescript": "^4.3.5",
+    "vue": "^3.1.5",
+    "webextension-polyfill-ts": "^0.26.0"
+  },
+  "targets": {
+    "popup": {
+      "context": "browser",
+      "distDir": "dist/popup",
+      "optimize": false,
+      "publicUrl": ".",
+      "engines": {
+        "browsers": "> 0.5%"
+      }
+    },
+    "background": {
+      "context": "node",
+      "includeNodeModules": true,
+      "optimize": false,
+      "distDir": "dist/background",
+      "engines": {
+        "node": "14"
+      }
+    },
+    "content-scripts": {
+      "context": "node",
+      "includeNodeModules": true,
+      "optimize": false,
+      "distDir": "dist/content-scripts",
+      "engines": {
+        "node": "14"
+      }
+    }
+  },
+  "devDependencies": {
+    "@parcel/transformer-vue": "^2.0.0-nightly.2400",
+    "@parcel/validator-typescript": "^2.0.0-nightly.778"
+  }
+}
