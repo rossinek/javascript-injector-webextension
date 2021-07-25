@@ -8,9 +8,10 @@
     "target": "es6",
     "noEmit": true,
     "skipLibCheck": true,
+    "jsx": "preserve",
     "paths": {
       "~*": ["../*"]
     },
   },
-  "include": ["src/**/*.ts", "src/**/*.vue"],
+  "include": ["src/**/*"]
 }
