@@ -1,9 +1,9 @@
 
 
-import { DefineComponent, defineComponent, onMounted, PropType, ref, watch } from 'vue'
+import { defineComponent, onMounted, PropType, ref } from 'vue'
 import styled, { css } from 'vue3-styled-components';
 import { browser } from 'webextension-polyfill-ts';
-import { ScriptDefinition } from '../../shared/cache'
+import { CachedScriptDefinition, ScriptDefinition } from '../../shared/cache'
 import BaseButton from './BaseButton'
 import ScriptShortcutsModal from './ScriptShortcutsModal'
 
@@ -37,7 +37,7 @@ const inputStyles = css`
   border-radius: 4px;
   padding: 8px;
   font-family: "Roboto Mono", Monaco, courier, monospace;
-  font-size: 12px;
+  font-size: 11px;
 `
 const HostsInput = styled.input`
   width: 100%;
@@ -69,13 +69,14 @@ const UseShortcutsHintButton = styled(BaseButton)`
 
 export default defineComponent({
   props: {
+    script: Object as PropType<CachedScriptDefinition>,
     onSubmit: Function as PropType<(payload: ScriptDefinition) => void>,
     onCancel: Function as PropType<() => void>
   },
   setup(props) {
-    const code = ref<string>('document.body.innerHTML = "<h1>This page has been eaten</h1>"')
-    const hosts = ref<string>('')
-    const usesShortcuts = ref<boolean>(false)
+    const code = ref<string>(props.script?.code || 'document.body.innerHTML = "<h1>This page has been eaten</h1>"')
+    const hosts = ref<string>(props.script?.hosts.join(',') || '')
+    const usesShortcuts = ref<boolean>(props.script?.usesShortcuts || false)
     const showShortcutsModal = ref<boolean>(false)
     const codeTextareaRef = ref<{ $el?: HTMLTextAreaElement }>()
     const hostsTextareaRef = ref<{ $el?: HTMLInputElement }>()
@@ -84,7 +85,7 @@ export default defineComponent({
       const currentUrl = await browser.tabs.query({ active: true, currentWindow: true })
         .then((tabs) => tabs[0].url)
         .catch(() => null)
-      hosts.value = currentUrl || '*://*.com/*'
+      if (!props.script) hosts.value = currentUrl || '*://*.com/*'
       hostsTextareaRef.value?.$el?.focus()
       setTimeout(() => hostsTextareaRef.value?.$el?.setSelectionRange(0, hosts.value.length))
       codeTextareaRef.value?.$el?.setSelectionRange(0, code.value.length)
@@ -93,6 +94,7 @@ export default defineComponent({
     const submit = (event: Event) => {
       event.preventDefault()
       if (
+        usesShortcuts.value ||
         !code.value.includes('ShortcutService') ||
         window.confirm('You are probably using `ShortcutService` in your code but "use shortcut" is off.\n' +
           'If you mean to use service provided by extension you should enable it first.\n\n' +

@@ -18,6 +18,7 @@
   "dependencies": {
     "@vue/compiler-sfc": "^3.1.5",
     "concurrently": "^6.2.0",
+    "content-scripts-register-polyfill": "^3.0.0",
     "nodemon": "^2.0.12",
     "parcel": "^2.0.0-nightly.776",
     "sass": "^1.35.2",

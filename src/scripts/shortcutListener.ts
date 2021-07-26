@@ -22,3 +22,5 @@ if (!window.ShortcutService) {
   window.ShortcutService = ShortcutService
   ;(window as any).__sth = 'ShortcutService'
 }
+
+console.log('add window.ShortcutService', window.ShortcutService)
