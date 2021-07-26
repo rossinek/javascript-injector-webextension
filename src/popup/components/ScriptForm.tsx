@@ -7,7 +7,6 @@ import { CachedScriptDefinition, ScriptDefinition } from '../../shared/cache'
 import BaseButton from './BaseButton'
 import ScriptShortcutsModal from './ScriptShortcutsModal'
 
-
 const ScriptForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -20,11 +19,23 @@ const ScriptFormField = styled.div`
   margin-bottom: 10px;
 `
 const ScriptFormLabel = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 13px;
   margin-bottom: 10px;
 `
 const UseShortcutsLabel = styled.label`
+  display: inline-flex;
+  align-items: center;
   margin-left: 20px;
   cursor: pointer;
+  & input {
+    margin-right: 10px;
+  }
+`
+const ShortcutsToolbar = styled.div`
+  margin-top: -10px;
+  margin-bottom: 10px;
 `
 const ShortcutButton = styled(BaseButton)`
   margin-right: 10px;
@@ -143,15 +154,15 @@ export default defineComponent({
           <ScriptFormField>
             <ScriptFormLabel>
               <span>Code</span>
-              <UseShortcutsLabel><input v-model={usesShortcuts.value} type="checkbox" /> Use shortcuts</UseShortcutsLabel>
+              <UseShortcutsLabel><input v-model={usesShortcuts.value} type="checkbox" />use shortcuts</UseShortcutsLabel>
               <UseShortcutsHintButton type="button" text onClick={() => { showShortcutsModal.value = true }}>?</UseShortcutsHintButton>
-              {usesShortcuts.value && (
-                <div>
-                  <ShortcutButton type="button" onClick={addRegisterShortcutCode}>+ register shortcut</ShortcutButton>
-                  <ShortcutButton type="button" onClick={addUnregisterShortcutCode}>- unregister shortcut</ShortcutButton>
-                </div>
-              )}
             </ScriptFormLabel>
+            {usesShortcuts.value && (
+              <ShortcutsToolbar>
+                <ShortcutButton type="button" onClick={addRegisterShortcutCode}>+ register shortcut</ShortcutButton>
+                <ShortcutButton type="button" onClick={addUnregisterShortcutCode}>– unregister shortcut</ShortcutButton>
+              </ShortcutsToolbar>
+            )}
             {showShortcutsModal.value && (
               <ScriptShortcutsModal onClose={() => { showShortcutsModal.value = false }} />
             )}

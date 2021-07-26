@@ -9,7 +9,8 @@ import ScriptForm from './components/ScriptForm'
 import ScriptList from './components/ScriptList'
 
 const AddScriptButton = styled(BaseButton)`
-  margin-top: 20px;
+  width: 100%;
+  padding: 10px 0;
 `
 const NEW_SCRIPT_ID = 'NEW_SCRIPT'
 
@@ -92,7 +93,6 @@ injectGlobal`
     --c-primary: #00b34d;
   }
   html {
-    font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
     font-size: 12px;
     box-sizing: border-box;
   }
@@ -100,8 +100,9 @@ injectGlobal`
     box-sizing: inherit;
   }
   body {
+    font-family: "Gill Sans", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
     width: 550px;
-    padding: 10px;
+    padding: 15px;
     background-color: #232323;
     color: #ccc;
   }

@@ -44,7 +44,7 @@ const ScriptOptions = styled.div`
   opacity: 0.6;
 `
 const ScriptCode = styled.pre`
-  margin-top: 0;
+  margin: 0;
   background-color: #303030;
   border-top: 1px solid #444;
   border-bottom-left-radius: 8px;

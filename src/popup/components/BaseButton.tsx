@@ -1,6 +1,7 @@
 import styled from 'vue3-styled-components';
 
 export default styled('button', { text: Boolean })`
+  font-family: "Gill Sans", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
   position: relative;
   text-transform: uppercase;
   background-color: ${props => props.text ? 'transparent' : 'var(--c-primary)'};
