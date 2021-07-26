@@ -12,7 +12,8 @@
 
   "description": "Evaluate JS code on pages at a given domain",
   "icons": {
-    "48": "icons/js-48.png"
+    "48": "icons/js-48.png",
+    "128": "icons/js-128.png"
   },
   "permissions": [
     "storage",
