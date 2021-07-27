@@ -2,3 +2,36 @@
 
 This webextension allows to create create JS scripts that are evaluated at a given domains without being blocked by CSP.
 It also provides a simple shortcut service that can be used to create custom shortcut handlers with JS.
+
+![Screenshot of example script](./screenshots/example-script.png)
+
+## Browsers
+
+Extension was tested on Mozilla Firefox 90 and Chromium (92) based browser (Brave).
+
+## Setup
+
+Technologies:
+
+- TypeScript
+- Vue 3 with TSX and styled components for UI
+- Parcel 2 as build tool
+
+### Development
+
+```sh
+# install dependencies
+npm i
+
+# start watching source and run rebuild on changes
+npm run dev
+```
+### Build extension for publish
+
+```sh
+# install dependencies
+npm i
+
+# build source and zip extension
+npm run build
+```

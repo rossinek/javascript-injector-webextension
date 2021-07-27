@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Evaluate JS code on pages at a given domain",
   "scripts": {
-    "build": "rm -rf dist .parcel-cache && concurrently \"npm:build:background\" \"npm:build:popup\" \"npm:build:scripts\"",
+    "build": "npm run build:src && mkdir -p dist-ext && zip -r -FS dist-ext/javascript-injector.zip manifest.json icons/* dist/* ",
+    "build:src": "rm -rf dist .parcel-cache && concurrently \"npm:build:background\" \"npm:build:popup\" \"npm:build:scripts\"",
     "build:background": "parcel build src/background/background.ts --target background --no-cache --no-scope-hoist",
     "build:popup": "parcel build src/popup/index.html --no-cache --target popup --no-scope-hoist",
     "build:scripts": "parcel build src/scripts/*.ts --no-cache --target content-scripts --no-scope-hoist",
@@ -18,7 +19,7 @@
   "dependencies": {
     "@vue/compiler-sfc": "^3.1.5",
     "concurrently": "^6.2.0",
-    "content-scripts-register-polyfill": "^3.0.0",
+    "content-scripts-register-polyfill": "github:rossinek/content-scripts-register-polyfill#execution-order-with-prepare",
     "nodemon": "^2.0.12",
     "normalize.css": "^8.0.1",
     "parcel": "^2.0.0-nightly.776",

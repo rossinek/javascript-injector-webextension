@@ -10,7 +10,7 @@
     }
   },
 
-  "description": "Evaluate JS code on pages at a given domain",
+  "description": "Evaluate Javascript code on pages at a given domain without being blocked by CSP. Create custom shortcuts with JS.",
   "icons": {
     "48": "icons/js-48.png",
     "128": "icons/js-128.png"
