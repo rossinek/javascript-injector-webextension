@@ -9,6 +9,8 @@ It also provides a simple shortcut service that can be used to create custom sho
 
 Extension was tested on Mozilla Firefox 90 and Chromium (92) based browser (Brave).
 
+- [Mozilla Firefox add-on](https://addons.mozilla.org/pl/firefox/addon/shark-javascript-injector/)
+
 ## Setup
 
 Technologies:
