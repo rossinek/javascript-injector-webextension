@@ -37,3 +37,10 @@ npm i
 # build source and zip extension
 npm run build
 ```
+
+### Example scripts
+
+- [Github notifications arrow navigation](https://gist.github.com/rossinek/0d1082327366cb83a69d4fb4fcec7498)
+- [Harvest (time tracking) arrow navigation](https://gist.github.com/rossinek/99b84d984771ae510f237747efd3e265)
+
+
