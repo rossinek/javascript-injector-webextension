@@ -56,7 +56,6 @@ const updateScript = async (script: CachedScriptDefinition) => {
 }
 
 readCache().then(scripts => {
-  console.log(scripts)
   scripts.forEach(script => registerScript(script, true))
 })
 

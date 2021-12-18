@@ -20,7 +20,4 @@ const ShortcutService = {
 if (!window.ShortcutService) {
   startListening(window)
   window.ShortcutService = ShortcutService
-  ;(window as any).__sth = 'ShortcutService'
 }
-
-console.log('add window.ShortcutService', window.ShortcutService)

@@ -31,8 +31,8 @@ const isShortcut = (event: KeyboardEvent, shortcut: Shortcut) => {
   return correctModifiers && event.key.toLowerCase() === shortcutKey
 }
 
-const registeredShortcuts: { [key in Shortcut]?: ShortcutConfig } = {}
-const getRegisteredShortcuts = (): Shortcut[] => (Object.keys(registeredShortcuts) as Shortcut[]).filter(key => registeredShortcuts[key])
+const registeredShortcuts: { [key in Shortcut]?: Map<ShortcutConfig['handler'], ShortcutConfig> } = {}
+const getRegisteredShortcuts = (): Shortcut[] => (Object.keys(registeredShortcuts) as Shortcut[]).filter(key => registeredShortcuts[key]?.size)
 
 const inputSelectors = ['input', 'textarea', 'select'];
 const inputSelectorsExceptions = ['input[type="checkbox"]'];
@@ -48,10 +48,12 @@ const hasActiveInput = () => {
 const keydownListener = (event: KeyboardEvent) => {
   getRegisteredShortcuts().forEach(shortcut => {
     if (isShortcut(event, shortcut)) {
-      const shortcutConfig = registeredShortcuts[shortcut]!
-      if (shortcutConfig.preventOnInputs && hasActiveInput()) return
-      shortcutConfig.handler(event)
       event.preventDefault()
+      const shortcutConfigs = registeredShortcuts[shortcut]!
+      shortcutConfigs.forEach(shortcutConfig => {
+        if (shortcutConfig.preventOnInputs && hasActiveInput()) return
+        shortcutConfig.handler(event)
+      })
     }
   })
 }
@@ -85,17 +87,27 @@ export const isValidShortcut = (_shortcut: unknown, silent: boolean = false): _s
 
 const normalizeShortcut = (shortcut: Shortcut) => {
   const parts = shortcut.split('+')
-  return parts.slice(0, -1).sort().join('+') + parts[parts.length - 1]
+  return parts.slice(0, -1).sort().concat([parts[parts.length - 1]]).join('+')
 }
 
 export const registerShortcut = (shortcut: Shortcut, options: ShortcutConfig | ShortcutConfig['handler']) => {
   if (isValidShortcut(shortcut)) {
-    registeredShortcuts[normalizeShortcut(shortcut)] = typeof options === 'function' ? { handler: options } : options
+    const shortcuts = registeredShortcuts[normalizeShortcut(shortcut)] || new Map()
+    const shortcutConfig: ShortcutConfig = typeof options === 'function' ? { handler: options } : options
+    shortcuts.set(shortcutConfig.handler, shortcutConfig)
+    registeredShortcuts[normalizeShortcut(shortcut)] = shortcuts
   }
 }
 
-export const unregisterShortcut = (shortcut: Shortcut) => {
-  delete registeredShortcuts[normalizeShortcut(shortcut)]
+export const unregisterShortcut = (shortcut: Shortcut, options?: ShortcutConfig | ShortcutConfig['handler']) => {
+  if (isValidShortcut(shortcut)) {
+    if (!options) {
+      delete registeredShortcuts[normalizeShortcut(shortcut)]
+    } else {
+      const handler = typeof options === 'function' ? options : options?.handler
+      registeredShortcuts[normalizeShortcut(shortcut)]?.delete(handler)
+    }
+  }
 }
 
-export const unregisterAllShortcuts = () => getRegisteredShortcuts().forEach(unregisterShortcut)
+export const unregisterAllShortcuts = () => getRegisteredShortcuts().forEach(shortcut => unregisterShortcut(shortcut))
