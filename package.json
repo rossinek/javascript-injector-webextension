@@ -19,7 +19,7 @@
   "dependencies": {
     "@vue/compiler-sfc": "^3.1.5",
     "concurrently": "^6.2.0",
-    "content-scripts-register-polyfill": "github:rossinek/content-scripts-register-polyfill#execution-order-with-prepare",
+    "content-scripts-register-polyfill": "^3.2.0",
     "nodemon": "^2.0.12",
     "normalize.css": "^8.0.1",
     "parcel": "^2.0.0-nightly.776",
