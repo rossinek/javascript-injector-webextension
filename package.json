@@ -1,6 +1,6 @@
 {
   "name": "javascript-injector",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Evaluate JS code on pages at a given domain",
   "scripts": {
     "build": "npm run build:src && mkdir -p dist-ext && zip -r -FS dist-ext/javascript-injector.zip manifest.json icons/* dist/* ",
