@@ -46,12 +46,16 @@ const hasActiveInput = () => {
 }
 
 const keydownListener = (event: KeyboardEvent) => {
+  let prevented = false
   getRegisteredShortcuts().forEach(shortcut => {
     if (isShortcut(event, shortcut)) {
-      event.preventDefault()
       const shortcutConfigs = registeredShortcuts[shortcut]!
       shortcutConfigs.forEach(shortcutConfig => {
         if (shortcutConfig.preventOnInputs && hasActiveInput()) return
+        if (!prevented) {
+          event.preventDefault()
+          prevented = true
+        }
         shortcutConfig.handler(event)
       })
     }
